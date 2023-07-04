@@ -1,0 +1,33 @@
+.userRegister{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 0 auto;
+    font-size: 24px;
+    margin-top: 20px;
+    text-align: center;
+    &__inputWrapper{
+        text-align: left;
+        width: 100%;
+    }
+    &__title{
+        margin-top: 10px;
+    }
+    & button{
+        width: 211px;
+        height: 55px;
+        background: #FE5F1E;
+        border: 1px solid #D3D3D3;
+        border-radius: 30px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;
+        color: white;
+        margin: 25px auto;
+    }
+}
+
+.error{
+    color: red;
+    font-size: 12px;
+}

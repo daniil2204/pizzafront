@@ -1,0 +1,130 @@
+.bucket{
+    width: 820px;
+    margin: 0 auto;
+    margin-top: 94px;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    & p {
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 39px;
+        letter-spacing: 0.01em;
+        color: #000000;
+        & span {
+            margin-left: 19px;
+        }  
+    }
+    &__button{
+        width: 211px;
+        height: 55px;
+        background: #FFFFFF;
+        border: 1px solid #D3D3D3;
+        border-radius: 30px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;
+        color: #B6B6B6;
+        & img{
+            margin-right: 12px;
+        }
+    }
+}
+
+
+.footer{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    &__section{
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 27px;
+        letter-spacing: 0.01em;
+        position: relative;
+        & button {
+            background: #FFFFFF;
+            border: 1px solid #D3D3D3;
+            border-radius: 30px;
+            margin-top: 40px;
+            width: 211px;
+            height: 55px;
+            font-size: 16px;
+            line-height: 19px;
+            text-align: center;
+            color: #CACACA;
+        }
+        & span{
+            color: #FE5F1E;
+        }
+        &__orderBtn{
+            background: #FE5F1E;
+            color: white;
+        }
+    }
+
+}
+
+@media(max-width:870px){
+    .bucket{
+        width: 100%;
+    }
+}
+
+@media(max-width:510px){
+    .header{
+        & p{ 
+            font-size: 24px;
+        }
+        &__button{
+            width: 150px;
+            height: 40px;
+            padding-top: 10px;
+            & span{
+                font-size: 0;
+            }
+        }
+    }
+    .footer{
+        &__section{
+            font-size: 16px;
+            & button {
+                width: 180px;
+                height: 45px;
+                padding-top: 5px;
+                & span{
+                    font-size: 0px;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:480px){
+    .footer{
+        display: block;
+        text-align: center;
+        &__section{
+            & p{
+                margin-top: 15px;
+                font-size: 20px;
+            }
+            & button{
+                position: static!important;
+                margin-top: 20px;
+            }
+        }
+    }
+}
+
+@media(max-width:390px){
+    .header{
+        & p{
+            & span{
+                font-size: 0;
+            }
+        }
+    }
+}
