@@ -1,5 +1,6 @@
-import { createSlice,PayloadAction } from "@reduxjs/toolkit";
-import { pizzaState, selectPizzaType, changePizzaCountType, setBucketToStoreType,removePizzaFromBucketType } from "@/types";
+import { createSlice,PayloadAction,createAsyncThunk } from "@reduxjs/toolkit";
+import { pizzaState, selectPizzaType, changePizzaCountType, setBucketToStoreType,removePizzaFromBucketType,pizzaChange, pizzaCreate } from "@/types";
+import axios from "axios";
 
 
 
@@ -13,6 +14,23 @@ const initialState: pizzaState = {
     category: 'Всі',
     sort:'популярності',
 }
+
+export const updatePizza = createAsyncThunk('pizza/updatePizza',async (params: pizzaChange) => {
+    const { data } = await axios.patch(`http://localhost:4444/pizza/${params._id}`,params,
+        {headers:
+            { 'Authorization': `Basic ${params.token}`}
+        })
+    return data;
+},)
+
+export const createPizza = createAsyncThunk('pizza/createPizza',async (params: pizzaCreate) => {
+    console.log(params);
+    const { data } = await axios.post(`http://localhost:4444/pizza`,params,
+        {headers:
+            { 'Authorization': `Basic ${params.token}`}
+        })
+    return data;
+},)
 
 const pizzaSlice = createSlice({
     name:'pizza',
@@ -29,9 +47,8 @@ const pizzaSlice = createSlice({
             localStorage.setItem('price',JSON.stringify(state.totalPrice));
         },
         removePizzaFromBucket(state,action: PayloadAction<removePizzaFromBucketType>) {
-            console.log(action.payload);
             state.bucket = state.bucket.filter(pizza => {
-                if (pizza.id === action.payload.id && pizza.size === action.payload.size && pizza.type === action.payload.type) {
+                if (pizza._id === action.payload._id && pizza.size === action.payload.size && pizza.type === action.payload.type) {
                     state.totalPrice -= pizza.price;
                     return false;
                 }
@@ -56,7 +73,7 @@ const pizzaSlice = createSlice({
         changeCount(state,action: PayloadAction<changePizzaCountType>) {
             state.bucketLength = state.bucketLength + action.payload.operation;
             state.bucket = state.bucket.map((item) => {
-                if (item.id === action.payload.id && item.size === action.payload.size && item.type === action.payload.type) {
+                if (item._id === action.payload._id && item.size === action.payload.size && item.type === action.payload.type) {
                     item.count = item.count + action.payload.operation;
                     if (action.payload.operation === 1) {
                         state.totalPrice += item.price;
@@ -80,6 +97,26 @@ const pizzaSlice = createSlice({
             state.sort = action.payload;
         }
     },
+    extraReducers: (builder) => {
+        builder.addCase(updatePizza.pending, (state) => {
+            state.loading = true;
+        }),
+        builder.addCase(updatePizza.fulfilled, (state) => {
+            state.loading = false;
+        }),
+        builder.addCase(updatePizza.rejected, (state) => {
+            state.loading = true;
+        }),
+        builder.addCase(createPizza.pending, (state) => {
+            state.loading = true;
+        }),
+        builder.addCase(createPizza.fulfilled, (state) => {
+            state.loading = false;
+        }),
+        builder.addCase(createPizza.rejected, (state) => {
+            state.loading = true;
+        })
+    }
 })
 
 

@@ -16,10 +16,12 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
 
     const bucket = useAppSelector(state => state.pizza.bucket);
 
-    const {id,imageUrl,name,types,sizes,price,category,rating} = pizza;
+    const {_id,imageUrl,name,types,sizes,price,category,rating} = pizza;
     const [type,setType] = useState<string>(types[0] === 0 ? 'тонке' : 'традиційне');
     const [size,setSize] = useState<number>(sizes[0]);
     const [count,setCount] = useState<number>(0);
+
+    const role = useAppSelector(state => state.user.data?.role);
 
     const isActive = (array:Array<number>,item:number) : boolean => {
         return array.includes(item);
@@ -27,7 +29,7 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
 
     useEffect(() => {
         const pizzaCount = bucket.reduce((acc,cur) => {
-            if (cur.id === id) {
+            if (cur._id === _id) {
                 return acc += cur.count;
             }
             return acc;
@@ -45,7 +47,7 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
         const selectPizza:selectPizzaType = {
             name,
             price,
-            id,
+            _id,
             imageUrl,
             category,
             rating,
@@ -53,9 +55,9 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
             size,
             count: 1,
         };
-        if (bucket.some(item => item.id === id && item.size === size && item.type === type)) {
+        if (bucket.some(item => item._id === _id && item.size === size && item.type === type)) {
             const operation = 1;
-            dispatch(changeCount({id,type,size,operation}))
+            dispatch(changeCount({_id,type,size,operation}))
         }else{
             dispatch(addPizzaToBucket(selectPizza));
         }       
@@ -66,7 +68,7 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
     return (
         <li className={styles.card}>
             <Image src={imageUrl} alt="pizza" width="260" height="260" style={{marginLeft:'20px'}}/>
-            <Link href={`/pizza/${id}`}><p className={styles.card__title}>{name}</p></Link>
+            <Link href={`/pizza/${_id}`}><p className={styles.card__title}>{name}</p></Link>
             <div className={styles.card__select}>
                 {['тонке','традиційне'].map((item,index) => {
                     const active = isActive(types,index);
@@ -100,6 +102,9 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
                     <div className={styles.card__footer__counter} style={{display: count ? 'block' : 'none'}}>{count}</div>
                 </button>
             </div>
+            {
+                role === 'admin' ? <Link href={`/change/${_id}`}><p className={styles.card__title} style={{cursor:'pointer'}}>Редагувати</p></Link> : null
+            }
         </li>
     )
 }

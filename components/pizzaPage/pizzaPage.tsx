@@ -6,7 +6,7 @@ import Link from "next/link";
 
 
 const PizzaPage:FC<PizzaPageProps> = ({pizza}) => {
-    const {id,imageUrl,name,types,sizes,price,category,rating} = pizza;
+    const {_id,imageUrl,name,types,sizes,price,category,rating} = pizza;
 
 
 

@@ -10,13 +10,13 @@ const placeholder:registerInterface = {
     password:"пароль",
 }
 
+
 const InputField = ({field} :FieldProps) => {
     let title = '';
     let type = field.name === 'password' ? 'password' : field.name === 'email' ? 'email' : 'text';
     if (field.name in placeholder) {
         title = placeholder[`${field.name}`]
     }
-    
     
 
     return(

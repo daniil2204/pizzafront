@@ -12,15 +12,15 @@ const BucketCard:FC<BucketCardProps> = ({pizza,initialCount}) => {
 
     const[count,setCount] = useState<number>(initialCount);
 
-    const removePizza = (id:number,size:number,type:string) => {
-        dispatch(removePizzaFromBucket({id,size,type,count}));
+    const removePizza = (_id:string,size:number,type:string) => {
+        dispatch(removePizzaFromBucket({_id,size,type,count}));
     }
 
-    const changePizzaCount = (id:number,type:string,size:number,count:number,operation: 1 | -1) => {
+    const changePizzaCount = (_id:string,type:string,size:number,count:number,operation: 1 | -1) => {
         if (count === 1 && operation === -1) {
-            removePizza(id,size,type);
+            removePizza(_id,size,type);
         }else{
-            dispatch(changeCount({id,type,size,operation}));
+            dispatch(changeCount({_id,type,size,operation}));
         }    
         setCount(count + operation);   
     }
@@ -36,14 +36,14 @@ const BucketCard:FC<BucketCardProps> = ({pizza,initialCount}) => {
             </div>
             <div className={styles.list__setings}>
                 <div className={styles.list__count}>
-                    <button onClick={() => changePizzaCount(pizza.id,pizza.type,pizza.size,count,-1)}><Image src="/remove.svg" alt="remove" height="32" width="32"/></button>
+                    <button onClick={() => changePizzaCount(pizza._id,pizza.type,pizza.size,count,-1)}><Image src="/remove.svg" alt="remove" height="32" width="32"/></button>
                     <p>{count}</p>
-                    <button onClick={() => changePizzaCount(pizza.id,pizza.type,pizza.size,count,1)}><Image src="/addCircle.svg" alt="add" height="32" width="32"/></button>
+                    <button onClick={() => changePizzaCount(pizza._id,pizza.type,pizza.size,count,1)}><Image src="/addCircle.svg" alt="add" height="32" width="32"/></button>
                 </div>
                 <p className={styles.list__price}>
                     {pizza.price * pizza.count} грн 
                 </p>
-                <button onClick={() => removePizza(pizza.id,pizza.size,pizza.type)}>
+                <button onClick={() => removePizza(pizza._id,pizza.size,pizza.type)}>
                 <Image src="/delete.svg" alt="delete" height="32" width="32"/>
                 </button>
             </div>

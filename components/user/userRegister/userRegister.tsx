@@ -4,7 +4,10 @@ import { Field, Formik } from "formik";
 import InputField from "@/components/fields/inputField";
 import * as Yup from 'yup';
 import { registerInterface, registerUserType } from "@/types";
-
+import { useAppDispatch, useAppSelector } from "@/services/reduxHook";
+import { createUser } from "@/redux/store/userSlice";
+import { useEffect,useState } from "react";
+import { useRouter } from "next/navigation";
 
 const init:registerInterface = {
     name:'',
@@ -33,18 +36,37 @@ const RegisterSchema = Yup.object().shape({
 const registerArray = ['name','surname','fatherName','email','password'];
 
 const UserRegister = () => {
+
+    const isAuth = useAppSelector(state => state.user.auth);
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+    const [check,setCheck] = useState<Boolean>(false);
+    const [error,setError] = useState<Boolean>(false);
+
+    useEffect(() => {
+        if (isAuth) {
+            router.push('/');
+        }
+    },[check]);
+
     return(
         <div className={styles.userRegister}>
             <Formik onSubmit={ async (data, {resetForm}) => {
                 const {name,surname,fatherName,email,password} = data;
                 const fullName = `${name} ${fatherName} ${surname}`;
-                const userData = {
+                const userData:registerUserType = {
                     fullName,
                     password,
                     email,
                 }
-                console.log(JSON.stringify(userData));
-                resetForm();
+                const res = await dispatch(createUser(userData));
+                setError(false);
+                if(res.payload) {
+                    resetForm();   
+                    setCheck(!check); 
+                }else{
+                    setError(true);
+                }
             }} 
             initialValues={init}
             validationSchema={RegisterSchema}
@@ -61,6 +83,7 @@ const UserRegister = () => {
                                 <p style={{background: 'gray', opacity: '0.25', width:'100%', height:'1px'}}></p>
                             </div>
                         ))}
+                        {error ? <p className={styles.error}>Почтова скринька вже використовується</p> : null}
                         <button type="submit">
                             Зареєструватися
                         </button>

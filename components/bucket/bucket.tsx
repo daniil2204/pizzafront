@@ -46,7 +46,7 @@ const Bucket:FC = () => {
     
                 <ul className={styles.list}>
                     {bucketFromRedux.map((pizza:selectPizzaType) => (
-                        <BucketCard key={pizza.id + Math.floor(Math.random() * (1000 - 10 + 1) + 10)} pizza={pizza} initialCount={pizza.count}/>
+                        <BucketCard key={pizza._id + Math.floor(Math.random() * (1000 - 10 + 1) + 10)} pizza={pizza} initialCount={pizza.count}/>
                     ))}               
                 </ul>
     

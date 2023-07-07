@@ -32,6 +32,7 @@ const UserLogin = () => {
     const dispatch = useAppDispatch();
     const router = useRouter();
     const [check,setCheck] = useState<Boolean>(false);
+    const [error,setError] = useState<Boolean>(false);
 
     useEffect(() => {
         if (isAuth) {
@@ -41,10 +42,16 @@ const UserLogin = () => {
    
     return(
         <div className={styles.userRegister}>
-            <Formik onSubmit={async (data, {resetForm}) => {
-                await dispatch(fetchUserData(data))
-                resetForm();   
-                setCheck(true);   
+            <Formik onSubmit={async (data, {resetForm}) => {            
+                const res = await dispatch(fetchUserData(data));
+                setError(false);
+                if(res.payload) {
+                    resetForm();   
+                    setCheck(!check); 
+                }else{
+                    setError(true);
+                }
+                  
             }} 
             initialValues={init}
             validationSchema={RegisterSchema}
@@ -61,6 +68,7 @@ const UserLogin = () => {
                                 <p style={{background: 'gray', opacity: '0.25', width:'100%', height:'1px'}}></p>
                             </div>
                         ))}
+                        {error ? <p className={styles.error}>Невірна почта або пароль</p> : null}
                         <button type="submit">
                             Увійти
                         </button>

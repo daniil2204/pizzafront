@@ -8,6 +8,7 @@ import { useState,useEffect } from 'react';
 import useSWR from 'swr';
 import { getBucketFromLocal,getBucketLengthFromLocal,getBucketPriceFromLocal } from "@/services/getFromLocal";
 import { setBucketToStore,setInitStore } from "@/redux/store/pizzaSlice";
+import { getMe } from "@/redux/store/userSlice";
 import Spinner from '../loader/loader'
 
 
@@ -27,9 +28,12 @@ const PizzaList = () => {
             const count = getBucketLengthFromLocal();
             const totalPrice = getBucketPriceFromLocal();
             dispatch(setBucketToStore({newBucket,count,totalPrice}));
-            dispatch(setInitStore(false))
+            dispatch(setInitStore(false));
+            const token = localStorage.getItem('token')
+            if (token) {
+                dispatch(getMe(token));
+            }        
         }
-
     },[])
 
     const category = useAppSelector(state => state.pizza.category);
@@ -51,11 +55,11 @@ const PizzaList = () => {
                 {         
                     value ? 
                     data?.filter(item => item.name.toLowerCase().includes(value.toLowerCase())).sort((a,b) => sort === 'за ціною' ? a.price - b.price : sort === 'популярності' ? b.rating - a.rating : a.name > b.name ? 1 : -1).map((pizza: pizzaType) => {
-                        return category === 'Всі' ? <PizzaCard key={pizza.id} pizza={pizza} /> : pizza.category.includes(category) ? <PizzaCard key={pizza.id} pizza={pizza} /> : null
+                        return category === 'Всі' ? <PizzaCard key={pizza._id} pizza={pizza} /> : pizza.category.includes(category) ? <PizzaCard key={pizza._id} pizza={pizza} /> : null
                     }) 
                     :
                     data?.sort((a,b) => sort === 'за ціною' ? a.price - b.price : sort === 'популярності' ? b.rating - a.rating : a.name > b.name ? 1 : -1).map((pizza: pizzaType) => {
-                        return category === 'Всі' ? <PizzaCard key={pizza.id} pizza={pizza} /> : pizza.category.includes(category) ? <PizzaCard key={pizza.id} pizza={pizza} /> : null
+                        return category === 'Всі' ? <PizzaCard key={pizza._id} pizza={pizza} /> : pizza.category.includes(category) ? <PizzaCard key={pizza._id} pizza={pizza} /> : null
                     }) 
                 }
                 </ul>

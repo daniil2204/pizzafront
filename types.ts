@@ -1,7 +1,7 @@
 import { ReactNode } from "react"
 
 export type pizzaType = {
-    id:number,
+    _id:string,
     imageUrl:string,
     name:string,
     types:Array<number>,
@@ -12,7 +12,7 @@ export type pizzaType = {
 }
 
 export type selectPizzaType = {
-    id:number,
+    _id:string,
     imageUrl:string,
     name:string,
     type:string,
@@ -24,7 +24,7 @@ export type selectPizzaType = {
 }
 
 export type countSelestPizza = {
-    id: number,
+    _id: string,
     count: number,
 }
 
@@ -52,6 +52,9 @@ export type userData = {
     _id:string,
     fullName:string,
     passwordHash:string,
+    email:string,
+    role: string,
+    token:string,
 }
 
 export type userState = {
@@ -72,7 +75,7 @@ export type registerUserType = {
 }
 
 export type changePizzaCountType = {
-    id:number,
+    _id:string,
     size:number,
     type:string,
     operation: 1 | -1,
@@ -85,7 +88,7 @@ export type setBucketToStoreType = {
 }
 
 export type removePizzaFromBucketType = {
-    id:number,
+    _id:string,
     size:number,
     type:string,
     count:number,
@@ -93,12 +96,13 @@ export type removePizzaFromBucketType = {
 
 export type Props = {
     params: {
-        id: string
+        _id: string
     }
 }
 
 export type PizzaPageProps = {
     pizza:pizzaType,
+    title:string,
 }
 
 export type ButtonProps = {
@@ -106,9 +110,33 @@ export type ButtonProps = {
     children?: ReactNode,
 }
 
+export interface pizzaChange {
+    [key: string]: string | Array<string> | Array<number> | number | undefined,
+    _id:string,
+    imageUrl:string,
+    name: string,
+    types: string | Array<number>,
+    sizes: string | Array<number>,
+    price: number,
+    rating: number,
+    category: Array<string> | string,
+    token?: string,
+}
+
+export interface pizzaCreate {
+    [key: string]: string | Array<string> | Array<number> | number | undefined,
+    imageUrl:string,
+    name: string,
+    types: string | Array<number>,
+    sizes: string | Array<number>,
+    price: number,
+    rating: number,
+    category: string[] | string,
+    token?: string,
+}
 
 export interface registerInterface {
-    [key: string]: string
+    [key: string]: string,
     name:string,
     surname:string,
     fatherName:string,
@@ -117,7 +145,7 @@ export interface registerInterface {
 }
 
 export interface loginInterface {
-    [key: string]: string
+    [key: string]: string,
     email:string,
     password:string,
 }

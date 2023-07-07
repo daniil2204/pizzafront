@@ -9,6 +9,8 @@ import { useAppSelector } from "@/services/reduxHook";
 const Header = () => {
     const count = useAppSelector(state => state.pizza.bucketLength);
     const totalPrice = useAppSelector(state => state.pizza.totalPrice);
+    const auth = useAppSelector(state => state.user.auth);
+    const role = useAppSelector(state => state.user.data?.role);
 
     return (
         <header>
@@ -31,8 +33,16 @@ const Header = () => {
             </div>
             <p style={{background: 'gray', opacity: '0.25', width:'100%', height:'1px', marginTop:'40px'}}></p>
             <div className={styles.userLink}>
-                <Link href="/login">Особистий кабінет</Link>
+                <Link href={`${auth ? '/user' : '/login'}`}>Особистий кабінет</Link>
             </div>
+            {
+                role === 'admin' ? 
+                <div className={styles.userLink}  style={{'bottom':'90px'}}>
+                    <Link href='/create'>Додати нову піцу</Link>
+                </div>
+                : 
+                null
+            }
         </header>
     )
 } 
