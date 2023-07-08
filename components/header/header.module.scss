@@ -2,6 +2,9 @@
     display: flex;
     justify-content: space-between;
     margin-top: 49px;
+    & button{
+        color: red;
+    }
     &__icon{
         display: flex;
         &__text{
@@ -22,22 +25,8 @@
             }
         }
     }
-    &__bucket{      
-        padding: 0 23px;
-        width: 150px;
-        height: 50px;
-        background: #FE5F1E;
-        border-radius: 30px;
-        color: #FFFFFF;    
-        & a{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }           
-    }
 
 }
-
 
 .userLink{
     position: fixed;
@@ -45,15 +34,27 @@
     right: 30px;
     width: 200px;
     height: 40px;
-    background-color: #FE5F1E;
-    color: white;
+    z-index: 200;
+    background:#FE5F1E;
     border-radius: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 20;
+    
+}
+
+@media (max-width: 900px) {
+    .userLink{
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+        background: whitesmoke;
+        padding-top: 5px;
+        & button{
+            & a {
+                font-size: 0px;
+            }
+            
+        }
+    }
 }
 
 @media (max-width: 515px){
@@ -68,10 +69,10 @@
                 }
             }
         }
-        &__bucket{      
-            padding: 0 18px;
-            width: 125px;
-            height: 45px;        
+        & button{      
+            padding: 0 18px !important;
+            width: 125px !important;
+            height: 45px !important;        
         }
     }
 }

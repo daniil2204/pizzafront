@@ -8,6 +8,7 @@ import Link from "next/link";
 import { FC } from 'react';
 import BucketCard from "../bucketCardItem/bucketCard";
 import EmptyBucket from "../emptyBucket/emptyBucket";
+import Button from "../button/button";
 
 
 const Bucket:FC = () => {
@@ -36,10 +37,10 @@ const Bucket:FC = () => {
                         <Image src="/cart.svg" alt="market cart" width="29" height="29"/>
                         <span>Корзина</span>
                     </p>
-                    <button className={styles.header__button} onClick={clearBucket}>
-                        <Image src="/trash.svg" alt="trach" width="12" height="17"/>
-                        Очистити <span>корзину</span>
-                    </button>     
+                    <Button background="#FFFFFF" border="1px solid #D3D3D3" width="211px" height="55px" color="#CACACA" fontSize="16px" fontWeight="400" lineHeight="19px"  callBack={clearBucket}>
+                        <Image src="/trash.svg" alt="trach" width="12" height="17" style={{marginRight:'12px'}}/>
+                        Очистити <span>корзину</span>             
+                    </Button>     
                 </div>
                 
                 <p style={{background: 'gray', opacity: '0.25', width:'100%', height:'1px', marginTop:'40px'}}></p>
@@ -53,15 +54,15 @@ const Bucket:FC = () => {
                 <div className={styles.footer}>
                     <div className={styles.footer__section}>
                         <p>Усього піц: <b>{bucketLength} шт.</b></p>
-                        <button>
+                        <Button background="#FFFFFF" border="1px solid #D3D3D3" margin="40px 0 0 0" width="211px" height="55px" color="#CACACA">
                             <Link href="/"> <span style={{color:'#CACACA'}}>{`<`}</span> Повернутися <span style={{color:'#CACACA'}}>назад</span></Link>
-                        </button>
+                        </Button>
                     </div>
                     <div className={styles.footer__section}>
                         <p>Сума замовлення: <span><b>{totalPrice} грн</b></span></p>
-                        <button style={{background:"#FE5F1E",color:'white',position:'absolute',bottom:'0',right:'0'}}>
+                        <Button background="#FE5F1E" color='white' position='absolute' bottom='0' right='0' width="211px" height="55px">
                             Оплатити <span style={{color:'white'}}>зараз</span>
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </div> 

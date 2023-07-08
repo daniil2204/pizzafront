@@ -7,6 +7,7 @@ import { FC,useEffect,useState } from 'react';
 import { useAppDispatch,useAppSelector } from '@/services/reduxHook';
 import { addPizzaToBucket,changeCount } from '@/redux/store/pizzaSlice';
 import Link from 'next/link';
+import Button from '../button/button';
 
 
 
@@ -73,13 +74,15 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
                 {['тонке','традиційне'].map((item,index) => {
                     const active = isActive(types,index);
 
-                    return <button 
-                        key={index}
-                        className={`${styles.card__select__var} ${active ? styles.active : ''} ${item === type ? styles.selected : ''}`}
-                        onClick={active ? () => setState(item) : () => alert('disable')}
-                        >
-                        {item}
-                    </button>
+                    return (
+                        <button 
+                            key={index}
+                            className={`${styles.card__select__var} ${active ? styles.active : ''} ${item === type ? styles.selected : ''}`}
+                            onClick={active ? () => setState(item) : () => alert('disable')}
+                            >
+                            {item}
+                        </button>
+                    )
                 })}
 
 

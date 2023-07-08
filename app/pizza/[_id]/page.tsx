@@ -6,7 +6,7 @@ import PizzaPage from '@/components/pizzaPage/pizzaPage'
 
 
 async function getData(id:string) {
-    const res = await fetch(`http://localhost:5000/pizzas/${id}`)
+    const res = await fetch(`http://localhost:4444/pizza/${id}`)
     
     if (!res.ok) {
         
@@ -16,15 +16,15 @@ async function getData(id:string) {
     return res.json()
 }
 
-export async function generateMetadata({ params : {id}} : Props) : Promise<Metadata> {
-    const pizza:pizzaType = await getData(id);
+export async function generateMetadata({ params : {_id}} : Props) : Promise<Metadata> {
+    const pizza:pizzaType = await getData(_id);
     return {
         title: pizza.name,
     };
 }
 
-const Pizza = async ({ params : {id}} : Props) => {
-    const pizza:pizzaType = await getData(id);
+const Pizza = async ({ params : {_id}} : Props) => {
+    const pizza:pizzaType = await getData(_id);
     return(
         <PizzaPage pizza={pizza}/>
     )

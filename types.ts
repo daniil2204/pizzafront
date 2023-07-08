@@ -102,7 +102,7 @@ export type Props = {
 
 export type PizzaPageProps = {
     pizza:pizzaType,
-    title:string,
+    title?:string,
 }
 
 export type ButtonProps = {

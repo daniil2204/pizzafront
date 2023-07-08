@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/services/reduxHook";
 import { removePizzaFromBucket,changeCount } from "@/redux/store/pizzaSlice";
 import styles from "./bucketCard.module.scss";
+import Button from "../button/button";
 
 const BucketCard:FC<BucketCardProps> = ({pizza,initialCount}) => {
 
@@ -44,7 +45,7 @@ const BucketCard:FC<BucketCardProps> = ({pizza,initialCount}) => {
                     {pizza.price * pizza.count} грн 
                 </p>
                 <button onClick={() => removePizza(pizza._id,pizza.size,pizza.type)}>
-                <Image src="/delete.svg" alt="delete" height="32" width="32"/>
+                    <Image src="/delete.svg" alt="delete" height="32" width="32"/>
                 </button>
             </div>
         </li>                  

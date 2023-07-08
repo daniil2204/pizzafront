@@ -17,20 +17,6 @@
             margin-left: 19px;
         }  
     }
-    &__button{
-        width: 211px;
-        height: 55px;
-        background: #FFFFFF;
-        border: 1px solid #D3D3D3;
-        border-radius: 30px;
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 19px;
-        color: #B6B6B6;
-        & img{
-            margin-right: 12px;
-        }
-    }
 }
 
 
@@ -44,18 +30,6 @@
         line-height: 27px;
         letter-spacing: 0.01em;
         position: relative;
-        & button {
-            background: #FFFFFF;
-            border: 1px solid #D3D3D3;
-            border-radius: 30px;
-            margin-top: 40px;
-            width: 211px;
-            height: 55px;
-            font-size: 16px;
-            line-height: 19px;
-            text-align: center;
-            color: #CACACA;
-        }
         & span{
             color: #FE5F1E;
         }
@@ -73,17 +47,17 @@
     }
 }
 
-@media(max-width:510px){
+@media(max-width:515px){
     .header{
         & p{ 
             font-size: 24px;
         }
-        &__button{
-            width: 150px;
-            height: 40px;
-            padding-top: 10px;
+        & button{
+            width: 150px !important;
+            height: 40px !important;
+            padding-top: 10px !important;
             & span{
-                font-size: 0;
+                font-size: 0 !important;
             }
         }
     }
@@ -91,18 +65,18 @@
         &__section{
             font-size: 16px;
             & button {
-                width: 180px;
-                height: 45px;
-                padding-top: 5px;
+                width: 180px !important;
+                height: 45px !important;
+                padding-top: 5px !important;
                 & span{
-                    font-size: 0px;
+                    font-size: 0px !important;
                 }
             }
         }
     }
 }
 
-@media(max-width:480px){
+@media(max-width:485px){
     .footer{
         display: block;
         text-align: center;
@@ -112,14 +86,14 @@
                 font-size: 20px;
             }
             & button{
-                position: static!important;
-                margin-top: 20px;
+                position: static !important;
+                margin-top: 20px !important;
             }
         }
     }
 }
 
-@media(max-width:390px){
+@media(max-width:395px){
     .header{
         & p{
             & span{
