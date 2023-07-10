@@ -2,30 +2,13 @@
 import styles from "../userRegister/userRegister.module.scss";
 import { Field, Formik } from "formik";
 import InputField from "@/components/fields/inputField";
-import * as Yup from 'yup';
-import { loginInterface } from "@/types";
 import { useAppDispatch,useAppSelector } from "@/services/reduxHook";
 import { fetchUserData } from "@/redux/store/userSlice";
 import { useRouter } from "next/navigation";
 import { useEffect,useState } from "react";
 import Link from "next/link";
-
-const init:loginInterface = {
-    email:'',
-    password:'',
-}
-
-const titleObj:loginInterface = {
-    email:"Email",
-    password:"Пароль",
-}
-
-const RegisterSchema = Yup.object().shape({
-    email: Yup.string().email('Невірний формат Email').required("Обов'язково для заповнення"),
-    password: Yup.string().min(3, "Too Short!").max(25,"Too long").required("Обов'язково для заповнення"),
-})
-
-const loginArray = ['email','password'];
+import { LoginSchema } from "@/formik/Shemas";
+import { initLogin,titleLoginObj,loginArray } from "@/formik/loginData";
 
 const UserLogin = () => {
     const isAuth = useAppSelector(state => state.user.auth);
@@ -53,14 +36,14 @@ const UserLogin = () => {
                 }
                   
             }} 
-            initialValues={init}
-            validationSchema={RegisterSchema}
+            initialValues={initLogin}
+            validationSchema={LoginSchema}
             >
                 {({errors,touched, handleSubmit}) => (
                     <form onSubmit={handleSubmit}>Увійти
                         {loginArray.map(item => (
                             <div key={item} className={styles.userRegister__inputWrapper}>
-                                <p className={styles.userRegister__title} onClick={() => console.log(isAuth)}>{titleObj[`${item}`]}*</p>
+                                <p className={styles.userRegister__title}>{titleLoginObj[`${item}`]}*</p>
                                 <Field name={item} component={InputField} />
                                 {errors[`${item}`] && touched[`${item}`] ? (
                                     <div className={styles.error}>{errors[`${item}`]}</div>) : null

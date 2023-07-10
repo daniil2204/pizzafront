@@ -11,18 +11,9 @@ import InputField from "../fields/inputField";
 import { useAppDispatch, useAppSelector } from "@/services/reduxHook";
 import { updatePizza, createPizza } from "@/redux/store/pizzaSlice";
 import { useState } from "react";
-import Button from "../button/button";
+import { pizzaChangeSchema } from "@/formik/Shemas";
+import { changePizzaArray,sizesPizzaOptions,typesPizzaOptions } from "@/formik/pizzaChangeData";
 
-const pizzaChangeSchema = Yup.object().shape({
-    imageUrl: Yup.string().min(3, "Too Short!").required("Обов'язково для заповнення"),
-    name: Yup.string().min(3, "Too Short!").max(25,"Too long").required("Обов'язково для заповнення"),
-    sizes: Yup.string(),
-    types: Yup.string(),
-    price: Yup.string(),
-})
-
-
-const changeArray = ['imageUrl','name','sizes','types','price','category','rating'];
 
 const PizzaChange:FC<PizzaPageProps> = ({pizza,title}) => {
     const {_id,imageUrl,name,types,sizes,price,category,rating} = pizza;
@@ -43,10 +34,8 @@ const PizzaChange:FC<PizzaPageProps> = ({pizza,title}) => {
         token,
     }
 
-    const sizesOptions = [[26],[30],[40],[26,30],[26,30,40],[26,40],[30,40]];
-    const typesOptions = [[0],[0,1],[1]];
-
     const [error,setError] = useState<string>('');
+    const [msg,setMsg] = useState<string>('');
 
 
     return(
@@ -73,8 +62,9 @@ const PizzaChange:FC<PizzaPageProps> = ({pizza,title}) => {
                             res = await dispatch(createPizza({...createdPizza,token}))
                         }
                         if (res.type.includes('/rejected')) {
-                            setError('Помилка при заповнені даних')
+                            return setError('Помилка при заповнені даних')
                         }
+                        return setMsg('Дані відправлено');
                         
                     }
 
@@ -84,17 +74,13 @@ const PizzaChange:FC<PizzaPageProps> = ({pizza,title}) => {
                     >
                         {({errors,touched, handleSubmit}) => (
                             <form onSubmit={handleSubmit}>{title}
-                                {changeArray.map(item => (
+                                {changePizzaArray.map(item => (
                                     <div key={item} className={styles.userRegister__inputWrapper}>
                                         <p className={styles.userRegister__title}>{item}</p>
                                         {item === 'sizes' || item === 'types' ? 
                                             <Field as="select" name={item}>
-                                                {item === 'sizes' ?
-                                                    sizesOptions.map((item) => (
-                                                        <option key={item.join(" ")} value={item.join(" ")}>{item.join(" ")}</option>
-                                                    ))
-                                                    :
-                                                    typesOptions.map((item) => (
+                                                {   
+                                                    (item === 'sizes' ? sizesPizzaOptions : typesPizzaOptions).map((item) => (
                                                         <option key={item.join(" ")} value={item.join(" ")}>{item.join(" ")}</option>
                                                     ))
                                                 }
@@ -112,6 +98,7 @@ const PizzaChange:FC<PizzaPageProps> = ({pizza,title}) => {
                                     Відправити
                                 </button>
                                 {error ? <p className={styles.error}>{error}</p> : null}
+                                {msg ? <p className={styles.error} style={{color:"green"}}>{msg}</p> : null}
                             </form>
                         )}
                 </Formik>

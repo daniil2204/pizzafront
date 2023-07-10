@@ -40,8 +40,7 @@ export type BucketCardProps = {
 export type pizzaState = {
     pizzas: pizzaType[],
     bucket: selectPizzaType[],
-    loading: boolean,
-    initialStore: boolean,    
+    loading: boolean,  
     bucketLength: number,
     totalPrice:number,
     category:string,
@@ -55,12 +54,16 @@ export type userData = {
     email:string,
     role: string,
     token:string,
+    bucket:selectPizzaType[],
+    bucketLenght:number,
+    totalPrice:number,
 }
 
 export type userState = {
     data: userData | null,
     status:string,
     auth: boolean,
+    initialStore: boolean,
 }
 
 export type loginUserType = {
@@ -105,10 +108,13 @@ export type PizzaPageProps = {
     title?:string,
 }
 
-export type ButtonProps = {
-    text: string,
-    children?: ReactNode,
+export type changeBucketProps = {
+    bucket:Array<selectPizzaType>,
+    count:number,
+    totalPrice:number,
+    token:string,
 }
+
 
 export interface pizzaChange {
     [key: string]: string | Array<string> | Array<number> | number | undefined,
@@ -148,4 +154,25 @@ export interface loginInterface {
     [key: string]: string,
     email:string,
     password:string,
+}
+
+export interface ButtonProps {
+    title?:string,
+    width?:string,
+    height?:string,
+    color?:string,
+    background?:string,
+    callBack?:() => void,
+    border?:string,
+    children?:ReactNode,
+    padding?:string,
+    position?: 'absolute' | 'fixed' | 'relative'
+    bottom?:string,
+    right?:string,
+    margin?:string,
+    fontWeight?:string,
+    fontSize?:string,
+    lineHeight?:string,
+    letterSpacing?:string,
+    zIndex?:number,
 }

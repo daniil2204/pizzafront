@@ -8,7 +8,6 @@ const initialState: pizzaState = {
     pizzas: [],
     bucket: [],
     loading: false,
-    initialStore: true,
     bucketLength: 0,
     totalPrice: 0,
     category: 'Всі',
@@ -24,7 +23,6 @@ export const updatePizza = createAsyncThunk('pizza/updatePizza',async (params: p
 },)
 
 export const createPizza = createAsyncThunk('pizza/createPizza',async (params: pizzaCreate) => {
-    console.log(params);
     const { data } = await axios.post(`http://localhost:4444/pizza`,params,
         {headers:
             { 'Authorization': `Basic ${params.token}`}
@@ -66,9 +64,6 @@ const pizzaSlice = createSlice({
             localStorage.setItem('bucket',JSON.stringify(state.bucket));
             localStorage.setItem('bucketLength',JSON.stringify(state.bucketLength));
             localStorage.setItem('price',JSON.stringify(state.totalPrice));
-        },
-        setInitStore(state,action: PayloadAction<boolean>) {
-            state.initialStore = action.payload;
         },
         changeCount(state,action: PayloadAction<changePizzaCountType>) {
             state.bucketLength = state.bucketLength + action.payload.operation;
@@ -120,5 +115,5 @@ const pizzaSlice = createSlice({
 })
 
 
-export const { addPizzaToBucket, removePizzaFromBucket, setBucketToStore, setInitStore, changeCount, setCategory, setSort } = pizzaSlice.actions;
+export const { addPizzaToBucket, removePizzaFromBucket, setBucketToStore, changeCount, setCategory, setSort } = pizzaSlice.actions;
 export default pizzaSlice.reducer;

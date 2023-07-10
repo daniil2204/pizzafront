@@ -2,38 +2,14 @@
 import styles from "./userRegister.module.scss";
 import { Field, Formik } from "formik";
 import InputField from "@/components/fields/inputField";
-import * as Yup from 'yup';
-import { registerInterface, registerUserType } from "@/types";
+import { registerUserType } from "@/types";
 import { useAppDispatch, useAppSelector } from "@/services/reduxHook";
 import { createUser } from "@/redux/store/userSlice";
 import { useEffect,useState } from "react";
 import { useRouter } from "next/navigation";
+import { RegisterSchema } from "@/formik/Shemas";
+import { registerArray,titleRegisterObj,initRegister } from "@/formik/registerData";
 
-const init:registerInterface = {
-    name:'',
-    surname: '',
-    fatherName: '',
-    email:'',
-    password:'',
-}
-
-const titleObj:registerInterface = {
-    name:"Ім'я",
-    surname:"Прізвище",
-    fatherName:"Ім'я по батькові",
-    email:"Email",
-    password:"Пароль",
-}
-
-const RegisterSchema = Yup.object().shape({
-    name: Yup.string().min(3, "Too Short!").max(25,"Too long").required("Обов'язково для заповнення"),
-    surname: Yup.string().min(3, "Too Short!").max(25,"Too long").required("Обов'язково для заповнення"),
-    fatherName: Yup.string().min(3, "Too Short!").max(25,"Too long").required("Обов'язково для заповнення"),
-    email: Yup.string().email('Невірний формат Email').required("Обов'язково для заповнення"),
-    password: Yup.string().min(3, "Too Short!").max(25,"Too long").required("Обов'язково для заповнення"),
-})
-
-const registerArray = ['name','surname','fatherName','email','password'];
 
 const UserRegister = () => {
 
@@ -68,14 +44,14 @@ const UserRegister = () => {
                     setError(true);
                 }
             }} 
-            initialValues={init}
+            initialValues={initRegister}
             validationSchema={RegisterSchema}
             >
                 {({errors,touched, handleSubmit}) => (
                     <form onSubmit={handleSubmit}>Реєстрація
                         {registerArray.map(item => (
                             <div key={item} className={styles.userRegister__inputWrapper}>
-                                <p className={styles.userRegister__title}>{titleObj[`${item}`]}*</p>
+                                <p className={styles.userRegister__title}>{titleRegisterObj[`${item}`]}*</p>
                                 <Field name={item} component={InputField} />
                                 {errors[`${item}`] && touched[`${item}`] ? (
                                     <div className={styles.error}>{errors[`${item}`]}</div>) : null

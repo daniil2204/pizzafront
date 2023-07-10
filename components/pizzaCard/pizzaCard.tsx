@@ -7,7 +7,6 @@ import { FC,useEffect,useState } from 'react';
 import { useAppDispatch,useAppSelector } from '@/services/reduxHook';
 import { addPizzaToBucket,changeCount } from '@/redux/store/pizzaSlice';
 import Link from 'next/link';
-import Button from '../button/button';
 
 
 
@@ -23,6 +22,7 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
     const [count,setCount] = useState<number>(0);
 
     const role = useAppSelector(state => state.user.data?.role);
+
 
     const isActive = (array:Array<number>,item:number) : boolean => {
         return array.includes(item);

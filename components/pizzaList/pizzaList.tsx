@@ -6,9 +6,7 @@ import { getAllPizzas } from "@/services/get";
 import { useAppSelector, useAppDispatch } from "@/services/reduxHook";
 import { useState,useEffect } from 'react';
 import useSWR from 'swr';
-import { getBucketFromLocal,getBucketLengthFromLocal,getBucketPriceFromLocal } from "@/services/getFromLocal";
-import { setBucketToStore,setInitStore } from "@/redux/store/pizzaSlice";
-import { getMe } from "@/redux/store/userSlice";
+
 import Spinner from '../loader/loader'
 
 
@@ -20,21 +18,8 @@ const PizzaList = () => {
 
     const dispatch = useAppDispatch();
     
-    const initStore = useAppSelector(state => state.pizza.initialStore);
     
-    useEffect(() => {
-        if (initStore) {
-            const newBucket = getBucketFromLocal();
-            const count = getBucketLengthFromLocal();
-            const totalPrice = getBucketPriceFromLocal();
-            dispatch(setBucketToStore({newBucket,count,totalPrice}));
-            dispatch(setInitStore(false));
-            const token = localStorage.getItem('token')
-            if (token) {
-                dispatch(getMe(token));
-            }        
-        }
-    },[])
+
 
     const category = useAppSelector(state => state.pizza.category);
 

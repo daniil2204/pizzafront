@@ -8,6 +8,7 @@ const store = configureStore({
         pizza:pizzaReducer,
         user:userReducer,
     },
+    devTools: process.env.NODE_ENV !== 'production'
 });
 
 
