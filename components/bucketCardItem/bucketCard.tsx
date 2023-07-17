@@ -2,10 +2,9 @@
 import { BucketCardProps } from "@/types";
 import { FC, useState } from "react";
 import Image from "next/image";
-import { useAppDispatch, useAppSelector } from "@/services/reduxHook";
+import { useAppDispatch } from "@/services/reduxHook";
 import { removePizzaFromBucket,changeCount } from "@/redux/store/pizzaSlice";
 import styles from "./bucketCard.module.scss";
-import Button from "../button/button";
 
 const BucketCard:FC<BucketCardProps> = ({pizza,initialCount}) => {
 

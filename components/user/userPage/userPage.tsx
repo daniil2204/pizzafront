@@ -42,9 +42,14 @@ const UserPage = () => {
             </Button>
             {
                 role === 'admin' ? 
-                <Button width={"155px"} height={"40px"} color="#EB5A1E" background="#FFFFFF" border="1px solid #EB5A1E" margin="20px 0 0">
-                    <Link href='/create'>Додати нову піцу</Link>
-                </Button>
+                <>
+                    <Button width={"155px"} height={"40px"} color="#EB5A1E" background="#FFFFFF" border="1px solid #EB5A1E" margin="20px 0 0">
+                        <Link href='/create'>Додати нову піцу</Link>
+                    </Button>
+                    <Button width={"155px"} height={"40px"} color="#EB5A1E" background="#FFFFFF" border="1px solid #EB5A1E" margin="20px 0 0">
+                        <Link href='/orders'>Список замовлень</Link>
+                    </Button>
+                </>
                 : 
                 null
             }

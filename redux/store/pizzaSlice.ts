@@ -1,5 +1,5 @@
 import { createSlice,PayloadAction,createAsyncThunk } from "@reduxjs/toolkit";
-import { pizzaState, selectPizzaType, changePizzaCountType, setBucketToStoreType,removePizzaFromBucketType,pizzaChange, pizzaCreate } from "@/types";
+import { pizzaState, selectPizzaType, changePizzaCountType, setBucketToStoreType,removePizzaFromBucketType,pizzaChange, pizzaCreate,deletePizzaType } from "@/types";
 import axios from "axios";
 
 
@@ -22,6 +22,7 @@ export const updatePizza = createAsyncThunk('pizza/updatePizza',async (params: p
     return data;
 },)
 
+
 export const createPizza = createAsyncThunk('pizza/createPizza',async (params: pizzaCreate) => {
     const { data } = await axios.post(`http://localhost:4444/pizza`,params,
         {headers:
@@ -29,6 +30,15 @@ export const createPizza = createAsyncThunk('pizza/createPizza',async (params: p
         })
     return data;
 },)
+
+
+export const deletePizza = createAsyncThunk('pizza/deletePizza', async (params:deletePizzaType) => {
+    const { data } = await axios.delete(`http://localhost:4444/pizza/${params._id}`,
+        {headers:
+            { 'Authorization': `Basic ${params.token}`}
+        })
+    return data;
+}) 
 
 const pizzaSlice = createSlice({
     name:'pizza',

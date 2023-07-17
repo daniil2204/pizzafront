@@ -13,5 +13,3 @@ const Button:FC<ButtonProps> = (props) => {
 }
 
 export default Button;
-
-// {title,width,height,callBack,color,background,border,children,padding,position,bottom,right,margin,fontWeight,fontSize,lineHeight,letterSpacing,zIndex}

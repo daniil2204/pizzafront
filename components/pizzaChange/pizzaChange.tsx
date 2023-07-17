@@ -5,11 +5,10 @@ import styles from "../user/userRegister/userRegister.module.scss"
 import Image from "next/image";
 import Link from "next/link";
 import { Field, Formik } from "formik";
-import * as Yup from 'yup';
 import { pizzaChange } from "@/types";
 import InputField from "../fields/inputField";
 import { useAppDispatch, useAppSelector } from "@/services/reduxHook";
-import { updatePizza, createPizza } from "@/redux/store/pizzaSlice";
+import { updatePizza, createPizza, removePizzaFromBucket, deletePizza } from "@/redux/store/pizzaSlice";
 import { useState } from "react";
 import { pizzaChangeSchema } from "@/formik/Shemas";
 import { changePizzaArray,sizesPizzaOptions,typesPizzaOptions } from "@/formik/pizzaChangeData";
@@ -36,6 +35,16 @@ const PizzaChange:FC<PizzaPageProps> = ({pizza,title}) => {
 
     const [error,setError] = useState<string>('');
     const [msg,setMsg] = useState<string>('');
+
+    const removePizza = async () => {
+        if (token) {
+            const responce = await dispatch(deletePizza({_id,token}))
+            if(responce.type.includes('/rejected')){
+                return setError('Помилка при заповнені даних')
+            }
+            return setMsg('Видалено');
+        }
+    }
 
 
     return(
@@ -102,9 +111,18 @@ const PizzaChange:FC<PizzaPageProps> = ({pizza,title}) => {
                             </form>
                         )}
                 </Formik>
+            {title === 'Редагування' 
+            ?
+            <button onClick={removePizza}>
+                Видалити
+            </button>
+            :
+            null
+            }
             <button>
                 <Link href="/">Повернутися</Link>
             </button>
+            
         </div>
     )
 }

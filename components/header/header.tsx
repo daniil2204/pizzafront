@@ -7,9 +7,7 @@ import { useAppSelector, useAppDispatch } from "@/services/reduxHook";
 import { changeBucket } from "@/redux/store/userSlice";
 import Button from "../button/button";
 import { useEffect } from "react";
-import { getBucketFromLocal,getBucketLengthFromLocal,getBucketPriceFromLocal } from "@/services/getFromLocal";
-import { setBucketToStore } from "@/redux/store/pizzaSlice";
-import { getMe, setInitStore } from "@/redux/store/userSlice";
+import { getBucketFromLocalOrDB } from "@/services/getBucketFromLocalOrDB";
 
 const Header = () => {
     const count = useAppSelector(state => state.pizza.bucketLength);
@@ -21,33 +19,15 @@ const Header = () => {
 
     const dispatch = useAppDispatch();
 
-    const test = async () => {
-            let newBucket;
-            let count;
-            let totalPrice;
-            if(token){
-                const res = await dispatch(getMe(token));
-                newBucket = res.payload.bucket;
-                count = res.payload.bucketLenght;
-                totalPrice = res.payload.totalPrice;
-            }else{
-                newBucket = getBucketFromLocal();
-                count = getBucketLengthFromLocal();
-                totalPrice = getBucketPriceFromLocal();
-            }       
-            dispatch(setBucketToStore({newBucket,count,totalPrice}));
-            dispatch(setInitStore(false));            
-    }
-
     useEffect(() => {
         if(initStore){
-            test();
+            getBucketFromLocalOrDB(dispatch,token);
         }else{
             if (token) {
                 dispatch(changeBucket({token,bucket,count,totalPrice}));
             }
         }
-    },[initStore,count])
+    },[initStore,count,auth])
 
 
     return (

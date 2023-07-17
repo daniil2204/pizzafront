@@ -1,5 +1,5 @@
 import { createSlice,PayloadAction,createAsyncThunk } from "@reduxjs/toolkit";
-import { userState,userData,loginUserType,registerUserType,changeBucketProps } from '@/types'
+import { userState,userData,loginUserType,registerUserType,changeBucketProps,makeOrderType,removeOrderType } from '@/types'
 import axios from 'axios';
 
 
@@ -34,8 +34,19 @@ export const getMe = createAsyncThunk('user/getMe',async (token: string) => {
 })
 
 export const changeBucket = createAsyncThunk('user/changeBucket',async (params:changeBucketProps) => {
-    console.log(params);
     const { data } = await axios.post('http://localhost:4444/auth/bucket',params ,{headers:
+        { 'Authorization': `Basic ${params.token}`}
+    });
+    return data;
+})
+
+export const makeOrder = createAsyncThunk('user/makeOrder',async (params:makeOrderType) => {
+    const { data } = await axios.post('http://localhost:4444/order',params);
+    return data;
+})
+
+export const removeOrder = createAsyncThunk('user/removeOrder',async (params:removeOrderType) => {
+    const { data } = await axios.delete(`http://localhost:4444/order/${params._id}` ,{headers:
         { 'Authorization': `Basic ${params.token}`}
     });
     return data;
@@ -57,6 +68,7 @@ const userSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchUserData.pending, (state) => {
             state.status = 'loading';
+            state.initialStore = true;
         }),
         builder.addCase(fetchUserData.fulfilled, (state, action:PayloadAction<userData>) => {
             state.data = action.payload;
@@ -96,11 +108,29 @@ const userSlice = createSlice({
         builder.addCase(changeBucket.pending, (state) => {
             state.status = 'loading';
         }),
-        builder.addCase(changeBucket.fulfilled, (state, action:PayloadAction<userData>) => {
+        builder.addCase(changeBucket.fulfilled, (state) => {
             state.status = 'loaded';
             state.auth = true;
         }),
         builder.addCase(changeBucket.rejected, (state) => {
+            state.status = 'error';
+        }),
+        builder.addCase(makeOrder.pending, (state) => {
+            state.status = 'loading';
+        }),
+        builder.addCase(makeOrder.fulfilled, (state) => {
+            state.status = 'loaded';
+        }),
+        builder.addCase(makeOrder.rejected, (state) => {
+            state.status = 'error';
+        }),
+        builder.addCase(removeOrder.pending, (state) => {
+            state.status = 'loading';
+        }),
+        builder.addCase(removeOrder.fulfilled, (state) => {
+            state.status = 'loaded';
+        }),
+        builder.addCase(removeOrder.rejected, (state) => {
             state.status = 'error';
         })
       },

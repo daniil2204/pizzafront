@@ -24,6 +24,8 @@
 .header{
     display: flex;
     justify-content: space-between;
+    z-index: 100;
+    position: relative;
     & input{
         border: 1px solid #EB5A1E;
         border-radius: 10px;
@@ -33,7 +35,6 @@
         font-weight: 400;
         font-size: 20px;
         line-height: 17px;
-        z-index: 1;
     }
 }
 

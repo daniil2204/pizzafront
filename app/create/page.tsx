@@ -1,5 +1,13 @@
 import PizzaChange from '@/components/pizzaChange/pizzaChange'
 import { pizzaType } from '@/types'
+import { Metadata } from "next";
+
+
+export async function generateMetadata() : Promise<Metadata> {
+    return {
+        title: 'Create Pizza',
+    };
+}
 
 const basePizza:pizzaType = {
     _id:'',

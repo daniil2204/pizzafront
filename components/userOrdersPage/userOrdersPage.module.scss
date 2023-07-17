@@ -1,0 +1,18 @@
+.ordersPage{
+    display:flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    &__order{
+        width: 320px;
+        border-radius: 30px;
+        border: 1px solid #EB5A1E;
+        padding: 10px;
+        margin: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        p {
+            margin-top: 10px;
+        }
+    }
+}

@@ -1,16 +1,16 @@
-import UserPage from '@/components/user/userPage/userPage';
+import OrderPage from "@/components/orderPage/orderPage";
 import { Metadata } from "next";
 
 
 export async function generateMetadata() : Promise<Metadata> {
     return {
-        title: 'User Page',
+        title: 'Order Page',
     };
 }
 
 const User = () => {
     return(
-        <UserPage />
+        <OrderPage />
     )
 }
 

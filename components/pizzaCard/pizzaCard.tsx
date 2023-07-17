@@ -1,5 +1,4 @@
 'use client'
-
 import styles from './pizzaCard.module.scss';
 import Image from 'next/image';
 import { selectPizzaType, PizzaCardProps } from '@/types';
@@ -8,22 +7,17 @@ import { useAppDispatch,useAppSelector } from '@/services/reduxHook';
 import { addPizzaToBucket,changeCount } from '@/redux/store/pizzaSlice';
 import Link from 'next/link';
 
-
-
 const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
 
     const dispatch = useAppDispatch();
-
     const bucket = useAppSelector(state => state.pizza.bucket);
-
     const {_id,imageUrl,name,types,sizes,price,category,rating} = pizza;
     const [type,setType] = useState<string>(types[0] === 0 ? 'тонке' : 'традиційне');
     const [size,setSize] = useState<number>(sizes[0]);
     const [count,setCount] = useState<number>(0);
-
+    const [changedPrice,setChangedPrice] = useState<number>(0);
     const role = useAppSelector(state => state.user.data?.role);
-
-
+    
     const isActive = (array:Array<number>,item:number) : boolean => {
         return array.includes(item);
     }
@@ -38,16 +32,25 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
         if (pizzaCount) {
             setCount(pizzaCount);
         }
+        setChangedPrice(price);
     },[])
 
-    const setState = (item:string | number) => {
-        typeof item === 'string' ? setType(item) : setSize(item); 
+    const setState = async (item:string | number) => {
+        if (typeof item === 'string') {
+            if (item === type) return;
+            await setType(item);
+            await setChangedPrice(price + (size === 26 ? 0 : size === 30 ? 15 : 25) + (item === 'тонке' ? 0 : 25));
+        }else{
+            if (item === size) return;
+            await setSize(item);
+            await setChangedPrice(price + (item === 26 ? 0 : item === 30 ? 15 : 25) + (type === 'тонке' ? 0 : 25));
+        }
     }
 
     const addPizza = () => {      
         const selectPizza:selectPizzaType = {
             name,
-            price,
+            price : changedPrice,
             _id,
             imageUrl,
             category,
@@ -65,10 +68,9 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
         setCount(count + 1)     
     }
 
-
     return (
         <li className={styles.card}>
-            <Image src={imageUrl} alt="pizza" width="260" height="260" style={{marginLeft:'20px'}}/>
+            <Image src={imageUrl} alt="pizza" width="260" height="260" style={{marginLeft:'20px'}} loading="lazy"/>
             <Link href={`/pizza/${_id}`}><p className={styles.card__title}>{name}</p></Link>
             <div className={styles.card__select}>
                 {['тонке','традиційне'].map((item,index) => {
@@ -84,8 +86,6 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
                         </button>
                     )
                 })}
-
-
                 {[26,30,40].map(item => {
                     const active = isActive(sizes,item);
                     return <button 
@@ -98,7 +98,7 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
                 })}
             </div>
             <div className={styles.card__footer}>
-                <p>{price} грн</p>
+                <p>{changedPrice} грн</p>
                 <button onClick={addPizza}>
                     <Image src="/add.svg" alt="add" width="12" height="12"/>
                     <span>Додати</span>

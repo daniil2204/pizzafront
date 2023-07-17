@@ -115,6 +115,36 @@ export type changeBucketProps = {
     token:string,
 }
 
+export type makeOrderType = {
+    bucket:Array<selectPizzaType>,
+    phone:string,
+    location:string,
+    additionalInfo?:string,
+    totalPrice:number,
+    userId?:string,
+    fullName?:string,
+}
+
+export type usersOrders = {
+    phone:string,
+    location:string,
+    fullName:string,
+    totalPrice:string,
+    bucket:Array<selectPizzaType>,
+    additionalInfo:string,
+    _id:string,
+}
+
+export type deletePizzaType = {
+    _id:string,
+    token:string,
+}
+
+export type removeOrderType = {
+    _id:string,
+    token:string,
+}
+
 
 export interface pizzaChange {
     [key: string]: string | Array<string> | Array<number> | number | undefined,
@@ -175,4 +205,11 @@ export interface ButtonProps {
     lineHeight?:string,
     letterSpacing?:string,
     zIndex?:number,
+}
+
+export interface orderInterface {
+    [key: string]: string,
+    phone:string,
+    location:string,
+    additionalInfo:string,
 }

@@ -2,9 +2,9 @@
 import PizzaCard from "../pizzaCard/pizzaCard";
 import styles from "./pizzaList.module.scss";
 import { pizzaType } from "@/types";
-import { getAllPizzas } from "@/services/get";
-import { useAppSelector, useAppDispatch } from "@/services/reduxHook";
-import { useState,useEffect } from 'react';
+import { getAllPizzas } from "@/services/getPizza";
+import { useAppSelector } from "@/services/reduxHook";
+import { useState } from 'react';
 import useSWR from 'swr';
 
 import Spinner from '../loader/loader'
@@ -15,12 +15,7 @@ import Spinner from '../loader/loader'
 const PizzaList = () => {
 
     const { data,isLoading } = useSWR('pizzas', getAllPizzas);
-
-    const dispatch = useAppDispatch();
     
-    
-
-
     const category = useAppSelector(state => state.pizza.category);
 
     const sort = useAppSelector(state => state.pizza.sort);
