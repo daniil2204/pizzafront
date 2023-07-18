@@ -15,38 +15,38 @@ const initialState:userState = {
 
 
 export const fetchUserData = createAsyncThunk('user/fetchUserData' ,async (params:loginUserType) => {
-    const { data } = await axios.post('http://localhost:4444/auth/login',params);
+    const { data } = await axios.post('https://pizzabackend-ames.onrender.com/auth/login',params);
     localStorage.setItem('token',data.token);
     return data;
 })
 
 export const createUser = createAsyncThunk('user/createUser',async (params: registerUserType) => {
-    const { data } = await axios.post('http://localhost:4444/auth/register',params);
+    const { data } = await axios.post('https://pizzabackend-ames.onrender.com/auth/register',params);
     localStorage.setItem('token',data.token);
     return data;
 })
 
 export const getMe = createAsyncThunk('user/getMe',async (token: string) => {
-    const { data } = await axios.get('http://localhost:4444/auth/me', {headers:
+    const { data } = await axios.get('https://pizzabackend-ames.onrender.com/auth/me', {headers:
         { 'Authorization': `Basic ${token}`}
     });
     return data;
 })
 
 export const changeBucket = createAsyncThunk('user/changeBucket',async (params:changeBucketProps) => {
-    const { data } = await axios.post('http://localhost:4444/auth/bucket',params ,{headers:
+    const { data } = await axios.post('https://pizzabackend-ames.onrender.com/bucket',params ,{headers:
         { 'Authorization': `Basic ${params.token}`}
     });
     return data;
 })
 
 export const makeOrder = createAsyncThunk('user/makeOrder',async (params:makeOrderType) => {
-    const { data } = await axios.post('http://localhost:4444/order',params);
+    const { data } = await axios.post('https://pizzabackend-ames.onrender.com/order',params);
     return data;
 })
 
 export const removeOrder = createAsyncThunk('user/removeOrder',async (params:removeOrderType) => {
-    const { data } = await axios.delete(`http://localhost:4444/order/${params._id}` ,{headers:
+    const { data } = await axios.delete(`https://pizzabackend-ames.onrender.com/order/${params._id}` ,{headers:
         { 'Authorization': `Basic ${params.token}`}
     });
     return data;

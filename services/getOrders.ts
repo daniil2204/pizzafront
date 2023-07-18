@@ -2,7 +2,7 @@ import { usersOrders } from "@/types";
 
 export const getAllOrders = async () : Promise<Array<usersOrders>> => {
     const token = localStorage.getItem('token');
-    const responce = await fetch("http://localhost:4444/order", {
+    const responce = await fetch("https://pizzabackend-ames.onrender.com/order", {
         next: {
             revalidate: 60,
         },

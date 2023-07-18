@@ -15,7 +15,7 @@ const initialState: pizzaState = {
 }
 
 export const updatePizza = createAsyncThunk('pizza/updatePizza',async (params: pizzaChange) => {
-    const { data } = await axios.patch(`http://localhost:4444/pizza/${params._id}`,params,
+    const { data } = await axios.patch(`https://pizzabackend-ames.onrender.com/pizza/${params._id}`,params,
         {headers:
             { 'Authorization': `Basic ${params.token}`}
         })
@@ -24,7 +24,7 @@ export const updatePizza = createAsyncThunk('pizza/updatePizza',async (params: p
 
 
 export const createPizza = createAsyncThunk('pizza/createPizza',async (params: pizzaCreate) => {
-    const { data } = await axios.post(`http://localhost:4444/pizza`,params,
+    const { data } = await axios.post(`https://pizzabackend-ames.onrender.com/pizza`,params,
         {headers:
             { 'Authorization': `Basic ${params.token}`}
         })
@@ -33,7 +33,7 @@ export const createPizza = createAsyncThunk('pizza/createPizza',async (params: p
 
 
 export const deletePizza = createAsyncThunk('pizza/deletePizza', async (params:deletePizzaType) => {
-    const { data } = await axios.delete(`http://localhost:4444/pizza/${params._id}`,
+    const { data } = await axios.delete(`https://pizzabackend-ames.onrender.com/pizza/${params._id}`,
         {headers:
             { 'Authorization': `Basic ${params.token}`}
         })
