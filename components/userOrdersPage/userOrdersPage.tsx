@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { useAppSelector,useAppDispatch } from "@/services/reduxHook";
 import { removeOrder } from "@/redux/store/userSlice";
 import { getAllOrders } from "@/services/getOrders";
-import useSWR from 'swr';
 import { useEffect,useState } from 'react';
 import Spinner from '../loader/loader';
 import { usersOrders } from "@/types";

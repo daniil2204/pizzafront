@@ -15,11 +15,12 @@ const Header = () => {
     const auth = useAppSelector(state => state.user.auth);
     const bucket = useAppSelector(state => state.pizza.bucket);
     const initStore = useAppSelector(state => state.user.initialStore);
-    const token = localStorage.getItem('token');
-
+    let token;
+    
     const dispatch = useAppDispatch();
 
     useEffect(() => {
+        token = localStorage.getItem('token');
         if(initStore){
             getBucketFromLocalOrDB(dispatch,token);
         }else{

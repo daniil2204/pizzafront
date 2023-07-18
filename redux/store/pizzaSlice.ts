@@ -50,9 +50,11 @@ const pizzaSlice = createSlice({
             })
             state.bucketLength += 1;
             state.totalPrice += action.payload.price;
-            localStorage.setItem('bucket',JSON.stringify(state.bucket));
-            localStorage.setItem('bucketLength',JSON.stringify(state.bucketLength));
-            localStorage.setItem('price',JSON.stringify(state.totalPrice));
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('bucket',JSON.stringify(state.bucket));
+                localStorage.setItem('bucketLength',JSON.stringify(state.bucketLength));
+                localStorage.setItem('price',JSON.stringify(state.totalPrice));
+            }
         },
         removePizzaFromBucket(state,action: PayloadAction<removePizzaFromBucketType>) {
             state.bucket = state.bucket.filter(pizza => {
@@ -63,17 +65,21 @@ const pizzaSlice = createSlice({
                 return true;
             });
             state.bucketLength -= action.payload.count;
-            localStorage.setItem('bucket',JSON.stringify(state.bucket));
-            localStorage.setItem('bucketLength',JSON.stringify(state.bucketLength));
-            localStorage.setItem('price',JSON.stringify(state.totalPrice));
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('bucket',JSON.stringify(state.bucket));
+                localStorage.setItem('bucketLength',JSON.stringify(state.bucketLength));
+                localStorage.setItem('price',JSON.stringify(state.totalPrice));
+            }
         },
         setBucketToStore(state,action: PayloadAction<setBucketToStoreType>) {
             state.bucket = action.payload.newBucket;
             state.bucketLength = action.payload.count;
             state.totalPrice = action.payload.totalPrice;
-            localStorage.setItem('bucket',JSON.stringify(state.bucket));
-            localStorage.setItem('bucketLength',JSON.stringify(state.bucketLength));
-            localStorage.setItem('price',JSON.stringify(state.totalPrice));
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('bucket',JSON.stringify(state.bucket));
+                localStorage.setItem('bucketLength',JSON.stringify(state.bucketLength));
+                localStorage.setItem('price',JSON.stringify(state.totalPrice));
+            }
         },
         changeCount(state,action: PayloadAction<changePizzaCountType>) {
             state.bucketLength = state.bucketLength + action.payload.operation;
@@ -90,9 +96,11 @@ const pizzaSlice = createSlice({
                     return item
                 }
             })   
-            localStorage.setItem('bucket',JSON.stringify(state.bucket));
-            localStorage.setItem('bucketLength',JSON.stringify(state.bucketLength)); 
-            localStorage.setItem('price',JSON.stringify(state.totalPrice));
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('bucket',JSON.stringify(state.bucket));
+                localStorage.setItem('bucketLength',JSON.stringify(state.bucketLength)); 
+                localStorage.setItem('price',JSON.stringify(state.totalPrice));
+            }
             
         },
         setCategory(state,action:PayloadAction<string>){
