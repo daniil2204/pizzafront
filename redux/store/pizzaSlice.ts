@@ -1,3 +1,4 @@
+'use client'
 import { createSlice,PayloadAction,createAsyncThunk } from "@reduxjs/toolkit";
 import { pizzaState, selectPizzaType, changePizzaCountType, setBucketToStoreType,removePizzaFromBucketType,pizzaChange, pizzaCreate,deletePizzaType } from "@/types";
 import axios from "axios";

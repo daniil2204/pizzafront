@@ -1,3 +1,4 @@
+'use client'
 import { createSlice,PayloadAction,createAsyncThunk } from "@reduxjs/toolkit";
 import { userState,userData,loginUserType,registerUserType,changeBucketProps,makeOrderType,removeOrderType } from '@/types'
 import axios from 'axios';
