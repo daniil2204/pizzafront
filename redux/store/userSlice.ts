@@ -97,7 +97,7 @@ const userSlice = createSlice({
         }),
         builder.addCase(getMe.fulfilled, (state, action:PayloadAction<userData>) => {
             state.data = action.payload;
-            if (typeof window !== 'undefined') {
+            if (typeof localStorage !== 'undefined') {
                 localStorage.setItem('bucket',JSON.stringify(state.data.bucket));
                 localStorage.setItem('price',JSON.stringify(state.data.totalPrice));
                 localStorage.setItem('bucketLength',JSON.stringify(state.data.bucketLenght));

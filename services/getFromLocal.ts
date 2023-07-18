@@ -1,5 +1,5 @@
 export const getBucketFromLocal = () => {
-    if (typeof window !== 'undefined') {
+    if (typeof localStorage !== 'undefined') {
         let data = localStorage.getItem('bucket');
         if (data) {
             return JSON.parse(data);
@@ -9,7 +9,7 @@ export const getBucketFromLocal = () => {
 }
 
 export const getBucketLengthFromLocal = () => {
-    if (typeof window !== 'undefined') {
+    if (typeof localStorage !== 'undefined') {
         let data = localStorage.getItem('bucketLength');
         if (data) {
             return JSON.parse(data);
@@ -19,7 +19,7 @@ export const getBucketLengthFromLocal = () => {
 }
 
 export const getBucketPriceFromLocal = () => {
-    if (typeof window !== 'undefined') {
+    if (typeof localStorage !== 'undefined') {
         let data = localStorage.getItem('price');
         if (data) {
             return JSON.parse(data);

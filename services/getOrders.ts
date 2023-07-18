@@ -1,7 +1,7 @@
 import { usersOrders } from "@/types";
 
 export const getAllOrders = async () : Promise<Array<usersOrders>> => {
-    if (typeof window !== 'undefined') {
+    if (typeof localStorage !== 'undefined') {
         const token = localStorage.getItem('token');
         const responce = await fetch("https://pizzabackend-ames.onrender.com/order", {
             next: {

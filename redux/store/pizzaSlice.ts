@@ -51,7 +51,7 @@ const pizzaSlice = createSlice({
             })
             state.bucketLength += 1;
             state.totalPrice += action.payload.price;
-            if (typeof window !== 'undefined') {
+            if (typeof localStorage !== 'undefined') {
                 localStorage.setItem('bucket',JSON.stringify(state.bucket));
                 localStorage.setItem('bucketLength',JSON.stringify(state.bucketLength));
                 localStorage.setItem('price',JSON.stringify(state.totalPrice));
@@ -66,7 +66,7 @@ const pizzaSlice = createSlice({
                 return true;
             });
             state.bucketLength -= action.payload.count;
-            if (typeof window !== 'undefined') {
+            if (typeof localStorage !== 'undefined') {
                 localStorage.setItem('bucket',JSON.stringify(state.bucket));
                 localStorage.setItem('bucketLength',JSON.stringify(state.bucketLength));
                 localStorage.setItem('price',JSON.stringify(state.totalPrice));
@@ -76,7 +76,7 @@ const pizzaSlice = createSlice({
             state.bucket = action.payload.newBucket;
             state.bucketLength = action.payload.count;
             state.totalPrice = action.payload.totalPrice;
-            if (typeof window !== 'undefined') {
+            if (typeof localStorage !== 'undefined') {
                 localStorage.setItem('bucket',JSON.stringify(state.bucket));
                 localStorage.setItem('bucketLength',JSON.stringify(state.bucketLength));
                 localStorage.setItem('price',JSON.stringify(state.totalPrice));
@@ -97,7 +97,7 @@ const pizzaSlice = createSlice({
                     return item
                 }
             })   
-            if (typeof window !== 'undefined') {
+            if (typeof localStorage !== 'undefined') {
                 localStorage.setItem('bucket',JSON.stringify(state.bucket));
                 localStorage.setItem('bucketLength',JSON.stringify(state.bucketLength)); 
                 localStorage.setItem('price',JSON.stringify(state.totalPrice));
