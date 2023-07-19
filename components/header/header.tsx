@@ -20,14 +20,14 @@ const Header = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        // token = localStorage.getItem('token');
-        // if(initStore){
-        //     getBucketFromLocalOrDB(dispatch,token);
-        // }else{
-        //     if (token) {
-        //         dispatch(changeBucket({token,bucket,count,totalPrice}));
-        //     }
-        // }
+        token = localStorage.getItem('token');
+        if(initStore){
+            getBucketFromLocalOrDB(dispatch,token);
+        }else{
+            if (token) {
+                dispatch(changeBucket({token,bucket,count,totalPrice}));
+            }
+        }
     },[initStore,count,auth])
 
 
