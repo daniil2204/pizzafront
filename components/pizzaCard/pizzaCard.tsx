@@ -33,7 +33,7 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
             setCount(pizzaCount);
         }
         setChangedPrice(price);
-    },[])
+    },[bucket])
 
     const setState = async (item:string | number) => {
         if (typeof item === 'string') {
