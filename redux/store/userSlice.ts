@@ -35,7 +35,7 @@ export const getMe = createAsyncThunk('user/getMe',async (token: string) => {
 })
 
 export const changeBucket = createAsyncThunk('user/changeBucket',async (params:changeBucketProps) => {
-    const { data } = await axios.post('https://pizzabackend-ames.onrender.com/bucket',params ,{headers:
+    const { data } = await axios.post('https://pizzabackend-ames.onrender.com/auth/bucket',params ,{headers:
         { 'Authorization': `Basic ${params.token}`}
     });
     return data;
