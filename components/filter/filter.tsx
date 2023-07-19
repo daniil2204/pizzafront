@@ -44,8 +44,8 @@ const Filter = () => {
                     <div className={styles.header__filter__wrap}>
                         <button style={{backgroundColor: '#F9F9F9',color:'black'}} className={styles.header__filter__wrapBtns__item} onClick={() => setShowFilter(!showFilter)}>Фільтр</button>
                     </div>
-                    <div className={styles.header__filter__wrapBtns} style={{}}>
-                    {/* display: window.innerWidth > 1025 ? 'flex' : showFilter ? 'block' : 'none' */}
+                    <div className={styles.header__filter__wrapBtns} style={{display: typeof window !== 'undefined' ? window.innerWidth > 1025 ? 'flex' : showFilter ? 'block' : 'none' : 'flex'}}>
+                    
                         {filters.map(item => (
                             <button 
                                 className={`${styles.header__filter__wrapBtns__item} ${activeFilter === item ? styles.activeFilter : ''}`} 
