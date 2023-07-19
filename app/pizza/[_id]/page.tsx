@@ -6,7 +6,7 @@ import PizzaPage from '@/components/pizzaPage/pizzaPage'
 
 
 async function getData(id:string) {
-    const res = await fetch(`http://localhost:4444/pizza/${id}`)
+    const res = await fetch(`https://pizzabackend-ames.onrender.com/pizza/${id}`)
     
     if (!res.ok) {
         
