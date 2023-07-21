@@ -53,7 +53,7 @@ const Header = () => {
             <p style={{background: 'gray', opacity: '0.25', width:'100%', height:'1px', marginTop:'40px'}}></p>
             <div className={styles.userLink}>
                 <Button width="100%" height="100%" color="white">
-                    <Link href={`${auth ? '/user' : '/login'}`}>{typeof window !== 'undefined' ? window.innerWidth > 900 ? 'Особистий кабінет' : <Image src={'/user.svg'} alt="userLink" width="40" height="40"/> : null}</Link>
+                    <Link href={`${auth ? '/user' : '/login'}`}>{typeof window !== 'undefined' ? window.innerWidth > 900 ? 'Особистий кабінет' : <Image src={'/user.svg'} alt="userLink" width="40" height="40"/> : 'Особистий кабінет'}</Link>
                 </Button>
             </div>
         </header>

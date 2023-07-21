@@ -16,6 +16,7 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
     const [size,setSize] = useState<number>(sizes[0]);
     const [count,setCount] = useState<number>(0);
     const [changedPrice,setChangedPrice] = useState<number>(0);
+    const [disable,setDisable] = useState<string>('');
     const role = useAppSelector(state => state.user.data?.role);
     
     const isActive = (array:Array<number>,item:number) : boolean => {
@@ -36,6 +37,7 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
     },[bucket])
 
     const setState = async (item:string | number) => {
+        setDisable('');
         if (typeof item === 'string') {
             if (item === type) return;
             await setType(item);
@@ -46,6 +48,7 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
             await setChangedPrice(price + (item === 26 ? 0 : item === 30 ? 15 : 25) + (type === 'тонке' ? 0 : 25));
         }
     }
+
 
     const addPizza = () => {      
         const selectPizza:selectPizzaType = {
@@ -80,7 +83,7 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
                         <button 
                             key={index}
                             className={`${styles.card__select__var} ${active ? styles.active : ''} ${item === type ? styles.selected : ''}`}
-                            onClick={active ? () => setState(item) : () => alert('disable')}
+                            onClick={active ? () => setState(item) : () => setDisable('Вибачте,але цей формат тіста недоступне')}
                             >
                             {item}
                         </button>
@@ -91,7 +94,7 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
                     return <button 
                         key={item}
                         className={`${styles.card__select__size} ${active ? styles.active : ''} ${size === item ? styles.selected : ''}`}
-                        onClick={active ? () => setState(item) : () => alert('disable')}
+                        onClick={active ? () => setState(item) : () => setDisable('Вибачте,але цей розмір піци недоступний')}
                         >
                         {item} см.
                     </button>
@@ -105,6 +108,10 @@ const PizzaCard:FC<PizzaCardProps> = ({pizza}) => {
                     <div className={styles.card__footer__counter} style={{display: count ? 'block' : 'none'}}>{count}</div>
                 </button>
             </div>
+            {disable ? 
+            <p className={styles.card__disable}>{disable}</p>
+            :
+            null}
             {
                 role === 'admin' ? <Link href={`/change/${_id}`}><p className={styles.card__title} style={{cursor:'pointer'}}>Редагувати</p></Link> : null
             }

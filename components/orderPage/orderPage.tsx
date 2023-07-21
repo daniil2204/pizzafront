@@ -18,6 +18,7 @@ const orderPage = () => {
 
     const [showModal,setShowModal] = useState<boolean>(false);
     const [backToMain,setbackToMain] = useState<boolean>(false);
+    const [modalText,setModalText] = useState<string>('');
 
     const dispatch = useAppDispatch();
     return(
@@ -25,8 +26,7 @@ const orderPage = () => {
             {showModal ? 
                 <div>
                     <div className={styles.modal}>
-                        <p>Дякуємо за замовлення</p>
-                        <p>Ваше замовлення оброблюється, менеджер зателефонує Вам</p>
+                        <p>{modalText}</p>
                     </div>
                     <div onClick={() => setShowModal(false)} className={styles.background}></div>
                 </div>
@@ -39,12 +39,20 @@ const orderPage = () => {
             </div>
             <p style={{background: 'gray', opacity: '0.25', width:'100%', height:'1px'}}></p>
             <Formik 
-                onSubmit={(data,{resetForm}) => {
-                    dispatch(makeOrder({bucket,...data,totalPrice,fullName,userId}))
-                    clearBucket(dispatch);
+                onSubmit={async (data,{resetForm}) => {
+                    const res = await dispatch(makeOrder({bucket,...data,totalPrice,fullName,userId}))
+                    if(res.payload){
+                        clearBucket(dispatch);
+                        setModalText('Дякуємо за Ваше замовлення, менеджер зателефонує Вам')
+                        setShowModal(true)
+                        setbackToMain(true); 
+                    }else{
+                        setShowModal(true)
+                        setbackToMain(true); 
+                        setModalText('Вибачте,сталася помилка');
+                    }
                     resetForm();
-                    setShowModal(true)
-                    setbackToMain(true);           
+                              
                 }} 
                 initialValues={initOrder}
                 validationSchema={OrderSchema}

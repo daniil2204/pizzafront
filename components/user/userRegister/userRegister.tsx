@@ -38,6 +38,7 @@ const UserRegister = () => {
                 const res = await dispatch(createUser(userData));
                 setError(false);
                 if(res.payload) {
+                    console.log('work');
                     resetForm();   
                     setCheck(!check); 
                 }else{
