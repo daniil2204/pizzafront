@@ -37,7 +37,7 @@ const Header = () => {
                 <div className={styles.header__icon}>
                     <Image src="/icon.svg" alt="pizzaIcon" width="38" height="38"></Image>
                     <div className={styles.header__icon__text}>
-                        <p>REACT PIZZA</p>
+                        <p>NEXT PIZZA</p>
                         <span>найсмачніша піца у всесвіті</span>
                     </div>
                 </div>
