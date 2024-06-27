@@ -12,6 +12,7 @@ body {
   display: flex;
   justify-content: center;
   margin: 0 20px;
+  background-color: white;
 }
 
 
@@ -57,6 +58,7 @@ li{
 input{
   border: none;
   outline: none;
+  background-color: white;
 }
 
 @media (prefers-color-scheme: dark) {
